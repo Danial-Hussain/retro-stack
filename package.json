@@ -1,0 +1,18 @@
+{
+  "name": "app",
+  "private": true,
+  "scripts": {
+    "start:docker": "npm install && cd docs && npm run build && cd ../packages/dls && npm run build-storybook && cd ../dls && npm run build && cd ../packages/dls && npm run build-storybook && cd ../dls && npm run build && cd ../../ && docker compose --env-file ./packages/api/.env up -d"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "@types/node": "^20.4.5",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  },
+  "devDependencies": {
+    "lerna": "^7.1.4"
+  }
+}

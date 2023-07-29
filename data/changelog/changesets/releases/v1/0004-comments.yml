@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_comments_table
+      author: ali
+      dbms: postgresql
+      changes:
+        - createTable:
+            tableName: comments
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                  defaultValueComputed: uuid_generate_v4()
+              - column:
+                  name: post_id
+                  type: uuid
+                  constraints:
+                    foreignKeyName: fk_comments_post_id
+                    references: posts(id)
+              - column:
+                  name: author_id
+                  type: uuid
+                  constraints:
+                    foreignKeyName: fk_comments_author_id
+                    references: users(id)
+              - column:
+                  name: reply
+                  type: varchar(255)
+              - column:
+                  name: created_at
+                  type: timestamp
+              - column:
+                  name: updated_at
+                  type: timestamp

@@ -1,0 +1,32 @@
+scalar DateTime
+    @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+type User {
+    id: ID!
+    name: String
+    email: String!
+    username: String!
+    user_type: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    remember_token: String
+    posts: [Post!]! @hasMany
+    comments: [Comment!]! @hasMany
+}
+
+extend type Mutation {
+    updateUser(id: ID! @eq, name: String!): User
+        @update
+        @guard
+        @can(ability: "update", injectArgs: true)
+
+    deleteUser(id: ID! @eq): User
+        @delete
+        @guard
+        @can(ability: "delete", injectArgs: true)
+}
+
+extend type Query {
+    me: User! @guard @auth
+    users: [User!]! @all @guard
+}

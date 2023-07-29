@@ -1,0 +1,4 @@
+#import user.graphql
+#import auth.graphql
+#import post.graphql
+#import comment.graphql

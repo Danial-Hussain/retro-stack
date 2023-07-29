@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_posts_table
+      author: ali
+      dbms: postgresql
+      changes:
+        - createTable:
+            tableName: posts
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                  defaultValueComputed: uuid_generate_v4()
+              - column:
+                  name: author_id
+                  type: uuid
+                  constraints:
+                    references: users(id)
+                    foreignKeyName: fk_posts_author_id
+              - column:
+                  name: title
+                  type: varchar(255)
+              - column:
+                  name: content
+                  type: varchar(255)
+              - column:
+                  name: created_at
+                  type: datetime
+              - column:
+                  name: updated_at
+                  type: datetime

@@ -1,0 +1,30 @@
+type Comment {
+    id: ID!
+    reply: String!
+    post: Post! @belongsTo
+    author: User! @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+extend type Query {
+    comments: [Comment!]! @all @guard
+    comment(id: Int! @eq): Comment @find @guard
+}
+
+extend type Mutation {
+    createComment(author_id: ID!, post_id: ID!, reply: String!): Comment!
+        @create
+        @guard
+        @can(ability: "create", injectArgs: true)
+
+    updateComment(id: ID!, reply: String!): Comment!
+        @update
+        @guard
+        @can(ability: "update", find: "id")
+
+    deleteComment(id: ID!): Comment!
+        @delete
+        @guard
+        @can(ability: "delete", find: "id")
+}

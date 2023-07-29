@@ -1,0 +1,48 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_personal_access_tokens_table
+      author: your_name_here
+      dbms: postgresql
+      changes:
+        - createTable:
+            tableName: personal_access_tokens
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                  defaultValueComputed: uuid_generate_v4()
+              - column:
+                  name: tokenable_id
+                  type: uuid
+              - column:
+                  name: tokenable_type
+                  type: varchar(255)
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: token
+                  type: varchar(64)
+                  constraints:
+                    unique: true
+              - column:
+                  name: abilities
+                  type: text
+              - column:
+                  name: last_used_at
+                  type: timestamp
+                  constraints:
+                    nullable: true
+              - column:
+                  name: expires_at
+                  type: timestamp
+                  constraints:
+                    nullable: true
+              - column:
+                  name: created_at
+                  type: timestamp
+              - column:
+                  name: updated_at
+                  type: timestamp
